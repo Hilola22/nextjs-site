@@ -14,7 +14,7 @@ export const ProductView: FC<IProps> = ({ data }) => {
         {data?.map((item: any) => (
           <div
             key={item.id}
-            className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden group"
+            className="product-card bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden group"
           >
             <div className="bg-gray-100 flex items-center justify-center h-[250px]">
               <img
@@ -24,9 +24,9 @@ export const ProductView: FC<IProps> = ({ data }) => {
               />
             </div>
             <div className="p-4">
-              <h2 className="font-semibold text-gray-800 text-sm md:text-base line-clamp-2">
-                {item.title}
-              </h2>
+                <h2 className="font-semibold text-gray-800 text-sm md:text-base line-clamp-2 min-h-[48px]">
+                  {item.title}
+                </h2>
               <p className="mt-2 inline-block px-3 py-1 text-xs font-medium bg-green-100 text-green-600 rounded-full">
                 {item.category}
               </p>
