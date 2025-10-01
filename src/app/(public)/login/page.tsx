@@ -40,6 +40,9 @@ const LoginPage = () => {
               Signup now
             </Link>
           </p>
+          <p className="text-center pt-6 text-blue-500 hover:underline">
+            <Link href={"/"}>Back to home</Link>
+          </p>
         </form>
       </div>
     </div>
