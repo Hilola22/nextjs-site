@@ -12,21 +12,29 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = params;
 
-  const user = await fetch(`https://fakestoreapi.com/users/${id}`).then((res) =>
-    res.json()
-  );
+  try {
+    const user = await fetch(`https://fakestoreapi.com/users/${id}`).then(
+      (res) => res.json()
+    );
 
-  return {
-    title: "User Information",
-    description: "Here is user information",
-  };
+    return {
+      title: `${user?.username || "User"} | User Information`,
+      description: `Profile details of ${user?.username || "user"}.`,
+    };
+  } catch {
+    return {
+      title: "User not found",
+      description: "No user information available",
+    };
+  }
 }
 
 export async function generateStaticParams() {
-  const data = await fetch("https://fakestoreapi.com/users?limit=100").then(
-    (res) => res.json()
-  );
-  return data.map((pro: any) => ({
+  const data: any[] = await fetch(
+    "https://fakestoreapi.com/users?limit=100"
+  ).then((res) => res.json());
+
+  return data.map((pro) => ({
     id: pro.id.toString(),
   }));
 }
@@ -60,18 +68,18 @@ const UserDetail = async ({ params }: Props) => {
             </p>
             <p className="text-gray-700">
               <span className="font-semibold">🏙️ City:</span>{" "}
-              {data?.address.city}
+              {data?.address?.city}
             </p>
             <p className="text-gray-700">
               <span className="font-semibold">📍 Address:</span>{" "}
-              {data?.address.street}, {data?.address.number}
+              {data?.address?.street}, {data?.address?.number}
             </p>
           </div>
           <Link
             href="/users"
             className="mt-8 px-6 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition"
           >
-             Back to Users
+            Back to Users
           </Link>
         </div>
       </div>
