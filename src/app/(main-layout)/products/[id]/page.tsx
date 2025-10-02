@@ -5,7 +5,9 @@ import { notFound } from "next/navigation";
 import React from "react";
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: {
+    id: string;
+  };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
