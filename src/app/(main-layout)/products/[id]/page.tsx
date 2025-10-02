@@ -11,7 +11,7 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params;
+  const { id } = params;
 
   const product = await fetch(`https://dummyjson.com/products/${id}`).then(
     (res) => res.json()
@@ -35,12 +35,8 @@ export async function generateStaticParams() {
   }));
 }
 
-const ProductDetail = async ({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) => {
-  const { id } = await params;
+const ProductDetail = async ({ params }: Props) => {
+  const { id } = params;
 
   const response = await fetch(`https://dummyjson.com/products/${id}`, {
     next: { revalidate: 60 },
