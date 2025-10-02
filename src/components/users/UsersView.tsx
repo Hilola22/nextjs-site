@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import SeeMore from "./SeeMore";
 
 interface IProps {
   data: any[];
@@ -48,9 +49,7 @@ export const UsersView: FC<IProps> = ({ data }) => {
                   </span>
                 </p>
               </div>
-              <button className="mt-auto bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium py-2 px-4 rounded-lg transition">
-                View Profile
-              </button>
+              <SeeMore id={user.id} />
             </div>
           );
         })}

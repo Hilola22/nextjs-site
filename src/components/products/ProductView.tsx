@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import SeeMore from "./SeeMore";
 
 interface IProps {
   data: any[];
@@ -24,9 +25,9 @@ export const ProductView: FC<IProps> = ({ data }) => {
               />
             </div>
             <div className="p-4">
-                <h2 className="font-semibold text-gray-800 text-sm md:text-base line-clamp-2 min-h-[48px]">
-                  {item.title}
-                </h2>
+              <h2 className="font-semibold text-gray-800 text-sm md:text-base line-clamp-2 min-h-[48px]">
+                {item.title}
+              </h2>
               <p className="mt-2 inline-block px-3 py-1 text-xs font-medium bg-green-100 text-green-600 rounded-full">
                 {item.category}
               </p>
@@ -36,10 +37,8 @@ export const ProductView: FC<IProps> = ({ data }) => {
                   ${item.price}
                 </p>
               )}
-              <button className="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium py-2 px-4 rounded-lg transition">
-                Add to Cart
-              </button>
             </div>
+              <SeeMore id={item.id} />
           </div>
         ))}
       </div>
