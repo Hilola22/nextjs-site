@@ -5,15 +5,13 @@ import { notFound } from "next/navigation";
 import React from "react";
 
 type Props = {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = params;
+  const { id } = await params;
 
-  const product = await fetch(`https://dummyjson.com/products/${id}`).then(
+  const product = await fetch(`https://fakestoreapi.com/products/${id}`).then(
     (res) => res.json()
   );
 
@@ -21,24 +19,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: product.title,
     description: product.description,
     openGraph: {
-      images: [product.thumbnail],
+      images: [product.image],
     },
   };
 }
 
 export async function generateStaticParams() {
-  const data = await fetch("https://dummyjson.com/products?limit=100").then(
+  const data = await fetch("https://fakestoreapi.com/products?limit=100").then(
     (res) => res.json()
   );
-  return data?.products.map((pro: any) => ({
+  return data?.map((pro: any) => ({
     id: pro.id.toString(),
   }));
 }
 
 const ProductDetail = async ({ params }: Props) => {
-  const { id } = params;
+  const { id } =await params;
 
-  const response = await fetch(`https://dummyjson.com/products/${id}`, {
+  const response = await fetch(`https://fakestoreapi.com/products/${id}`, {
     next: { revalidate: 60 },
   });
 
@@ -53,7 +51,7 @@ const ProductDetail = async ({ params }: Props) => {
       <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-10 bg-white rounded-2xl shadow-lg p-6">
         <div className="flex items-center justify-center">
           <Image
-            src={data?.images[0]}
+            src={data?.image}
             alt={data?.title}
             width={500}
             height={500}
@@ -67,7 +65,7 @@ const ProductDetail = async ({ params }: Props) => {
             <span className="text-2xl font-semibold text-blue-600">
               ${data?.price}
             </span>
-            <span className="text-sm text-gray-500">⭐ {data?.rating} / 5</span>
+            <span className="text-sm text-gray-500">⭐ {data?.rating.rate} / 5</span>
           </div>
           <button className="w-fit px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-md transition">
             Add to Cart

@@ -5,13 +5,12 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "cdn.dummyjson.com",
+        hostname: "fakestoreapi.com",
         port: "",
         pathname: "/**",
       },
     ],
   },
-  /* config options here */
 };
 
 export default nextConfig;
